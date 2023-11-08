@@ -1,0 +1,56 @@
+class Figura {
+    field int x, y;
+    field Cubo avatar;
+
+    constructor Figura new(int Ax, int Ay) {
+        let x = Ax;
+        let y = Ay;
+        let avatar = Cubo.new(x, y);
+        do draw();
+        return this;
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method void draw() {
+        //do Screen.setColor(true);
+        //do Screen.drawRectangle(x, y, x + size, y + size);
+        do avatar.dibujar_cubo(x, y);
+        return;
+    }
+
+    method void borrar() {
+        //do Screen.setColor(false);
+        //do Screen.drawRectangle(x, y, x + size, y + size);
+        do avatar.borrar(x, y);
+        return;
+    }
+
+    method void saltar() {
+        var int i;
+        let i = 0;
+        while (i < 100) {
+            do borrar();
+            let y = y - 1;
+            let i = i + 1;
+            do draw();
+        }
+        do Sys.wait(3);
+        let i = 0;
+
+        while (i < 100) {
+            do borrar();
+            let y = y + 1;
+            let i = i + 1;
+            do draw();
+        }
+
+        return;
+    }
+
+
+
+}

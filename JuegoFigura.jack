@@ -1,0 +1,52 @@
+class JuegoFigura {
+    field Figura figura;
+    field int direccion;
+    field Base base_actual;
+
+    constructor JuegoFigura new() {
+        let figura = Figura.new(2, 150);
+        let direccion = 0;
+        let base_actual = Base.new(2, 167);
+        do figura.saltar();
+        return this;
+    }
+
+    method void dispose() {
+        do figura.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method void moverFigura() {
+        if (direccion = 1) {
+            do figura.saltar();
+        }
+        do Sys.wait(5);  //espera 5 seg
+        return;
+    }
+
+    method void run() {
+        var char tecla;
+        var boolean exit;
+        let exit = false;
+        
+        while (~exit){
+            while (tecla = 0) {
+                let tecla = Keyboard.keyPressed();
+            }
+            if (tecla = 81) {  //letra Q  QUIT
+                let exit = true;
+            }
+            if (tecla = 131) {  //letra up
+                let direccion = 1;
+            }
+
+            while (~(tecla = 0)) {
+                let tecla = Keyboard.keyPressed();
+                do moverFigura();
+                let direccion = 0;
+            }
+        }
+        return;
+    }
+}
