@@ -1,6 +1,13 @@
 class Main {
     function void main() {
+        var int num;
         var JuegoFigura game;
+        var int tiempo;
+
+        do Random.setSeed(321);
+        let num = Random.rand();
+        do Output.printInt(num);
+
         let game = JuegoFigura.new();
         do game.run();
         do game.dispose();
