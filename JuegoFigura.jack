@@ -1,12 +1,15 @@
 class JuegoFigura {
     field Figura figura;
     field int direccion;
-    field Base base_actual;
+    field Base base_inicial;
+    field Plataforma plataforma;
 
     constructor JuegoFigura new() {
-        let figura = Figura.new(2, 150);
         let direccion = 0;
-        let base_actual = Base.new(2, 167);
+        let figura = Figura.new(2, 150);
+        let base_inicial = Base.new(2, 167);
+        let plataforma = Plataforma.new(base_inicial);
+
         do figura.saltar();
         return this;
     }
@@ -28,11 +31,16 @@ class JuegoFigura {
     method void run() {
         var char tecla;
         var boolean exit;
+        var Base base_inicial;
         let exit = false;
-        
+
         while (~exit){
             while (tecla = 0) {
                 let tecla = Keyboard.keyPressed();
+                do plataforma.avanzar();
+                do Sys.wait(10);
+
+
             }
             if (tecla = 81) {  //letra Q  QUIT
                 let exit = true;

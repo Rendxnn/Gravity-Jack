@@ -49,7 +49,6 @@ class Figura {
             do draw();
             do Sys.wait(3);
         }
-
         return;
     }
 

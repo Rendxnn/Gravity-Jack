@@ -1,11 +1,12 @@
 class Base {
 	field int x;
 	field int y;
+	field int memAddress;
 
 	constructor Base new(int px, int py) {
 		let x = px;
 		let y = py;
-		do dibujar_base(px, py);
+		do dibujar_base();
 		return this;
 	}
 
@@ -14,13 +15,52 @@ class Base {
         return;
     }
 
-    method void dibujar_base(int x, int y) {
-    	var int memAddress;
+    method int get_x() {
+    	return x;
+    }
+
+    method int get_y() {
+    	return y;
+    }
+
+   	method void avanzar_base() {
+   		let x = x - 1;
+   		return;
+   	}
+
+    method void dibujar_base() {
+    	if (x > 31) {
+    		return;
+    	}
 		let memAddress = 16384 + (32 * y) + x;
 		do Memory.poke(memAddress + 0, 32766);
 		do Memory.poke(memAddress + 32, -1);
 		do Memory.poke(memAddress + 64, -1);
 		do Memory.poke(memAddress + 96, 32766);
+		do Memory.poke(memAddress + 128, 0);
+		do Memory.poke(memAddress + 160, 0);
+		do Memory.poke(memAddress + 192, 0);
+		do Memory.poke(memAddress + 224, 0);
+		do Memory.poke(memAddress + 256, 0);
+		do Memory.poke(memAddress + 288, 0);
+		do Memory.poke(memAddress + 320, 0);
+		do Memory.poke(memAddress + 352, 0);
+		do Memory.poke(memAddress + 384, 0);
+		do Memory.poke(memAddress + 416, 0);
+		do Memory.poke(memAddress + 448, 0);
+		do Memory.poke(memAddress + 480, 0);
+		return;
+    }
+
+    method void borrar_base() {
+		if (x > 31) {
+    		return;
+    	}
+		let memAddress = 16384 + (32 * y) + x;
+		do Memory.poke(memAddress + 0, 0);
+		do Memory.poke(memAddress + 32, 0);
+		do Memory.poke(memAddress + 64, 0);
+		do Memory.poke(memAddress + 96, 0);
 		do Memory.poke(memAddress + 128, 0);
 		do Memory.poke(memAddress + 160, 0);
 		do Memory.poke(memAddress + 192, 0);
