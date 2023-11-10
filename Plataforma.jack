@@ -1,16 +1,13 @@
 class Plataforma {
 	field int actual;
 	field Array bases;
-	field int i;
 	field Base base_actual;
-	field int x_anterior;
-	field int y_anterior;
 	field int posicion_primera_base;
-	field Base primera_base;
-	field int x_primera_base;
-	field Base base_anterior;
 
 	constructor Plataforma new(Base base_inicial) {
+		var int i;
+
+
 		let actual = 0; 
 		let bases = Array.new(5);
 		let i = 0;
@@ -35,13 +32,13 @@ class Plataforma {
 
 	method Base generar_base(Base base_anterior, int semilla_actual) {
 		var int posicion;
-
+		var int x_anterior;
+		var int y_anterior;
 
 		do Random.setSeed(semilla_actual);
 		let posicion = Random.randRange(2);
 		let x_anterior = base_anterior.get_x();
 		let y_anterior = base_anterior.get_y();
-		do Output.printInt(i);
 
 		if (posicion = 2) { 
 			let base_actual = Base.new(x_anterior + 8, y_anterior - 10);
@@ -58,6 +55,10 @@ class Plataforma {
 	}
 
 	method void reemplazar_base() {
+		var Base primera_base;
+		var int x_primera_base;
+		var Base base_anterior;
+
 		let primera_base = bases[posicion_primera_base];
 		let x_primera_base = primera_base.get_x();
 		if (x_primera_base < 0) {
@@ -67,6 +68,7 @@ class Plataforma {
 			else {
 				let base_anterior = bases[5];
 			}
+			do primera_base.dispose();
 			let base_actual = generar_base(base_anterior, 5);
 			let bases[posicion_primera_base] = base_actual;
 			if (posicion_primera_base = 5) {
@@ -76,11 +78,15 @@ class Plataforma {
 				let posicion_primera_base = posicion_primera_base + 1;
 			}
 		}
+
 		return;
 	}
 
 	method void avanzar() {
+		var int i;
+		var Base base_actual;
 
+		do reemplazar_base();
 		let i = 0;
 		while (i < 5) {
 			let base_actual = bases[i];	
@@ -89,7 +95,7 @@ class Plataforma {
 			do base_actual.dibujar_base();
 			let i = i + 1;
 		}
-
+		do Memory.deAlloc(base_actual);
 		return;
 	}
 }
