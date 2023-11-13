@@ -25,6 +25,9 @@ class Base {
 
    	method void avanzar_base() {
    		let x = x - 1;
+   		if (x < 0) {
+   			let x = 30;
+   		}
    		return;
    	}
 

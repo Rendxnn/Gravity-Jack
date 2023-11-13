@@ -6,23 +6,25 @@ class Plataforma {
 
 	constructor Plataforma new(Base base_inicial) {
 		var int i;
-
-
 		let actual = 0; 
-		let bases = Array.new(5);
+		let bases = Array.new(8);
 		let i = 0;
 		let base_actual = base_inicial;
-		while (i < 5) {
-			let i = i + 1;
-			let base_actual = generar_base(base_actual, 5);
+		while (i < 8) {
 			do agregar_base(base_actual);
+			let base_actual = generar_base(base_actual, 5);
+			let i = i + 1;
 		}
 		let posicion_primera_base = 0;
 		return this;
 	}
 
+	method Array get_bases() {
+		return bases;
+	}
+
 	method void agregar_base(Base nueva_base) {
-		if (actual = 5) {
+		if (actual = 8) {
 			let actual = 0;
 		}
 		let bases[actual] = nueva_base;
@@ -36,59 +38,37 @@ class Plataforma {
 		var int y_anterior;
 
 		do Random.setSeed(semilla_actual);
-		let posicion = Random.randRange(2);
+		let posicion = Random.randRange(1);
 		let x_anterior = base_anterior.get_x();
 		let y_anterior = base_anterior.get_y();
 
-		if (posicion = 2) { 
-			let base_actual = Base.new(x_anterior + 8, y_anterior - 10);
-		}
-		if (posicion = 1) { 
-			let base_actual = Base.new(x_anterior + 10, y_anterior);
-		}
-		if (posicion = 0) { 
-			let base_actual = Base.new(x_anterior + 8, y_anterior + 10);
 
+		if (posicion = 1) { // generar base arriba
+			if (y_anterior - 30 < 0) {
+				let base_actual = Base.new(x_anterior + 4, y_anterior + 30);
+			}
+			else {
+				let base_actual = Base.new(x_anterior + 4, y_anterior - 30);
+			}
+		}
+		if (posicion = 0) {  // generar base abajo
+			if (y_anterior + 30 > 256) {
+				let base_actual = Base.new(x_anterior + 4, y_anterior - 30);
+			}
+			else {
+				let base_actual = Base.new(x_anterior + 4, y_anterior + 30);
+			}
 		}
 
 		return base_actual;
-	}
-
-	method void reemplazar_base() {
-		var Base primera_base;
-		var int x_primera_base;
-		var Base base_anterior;
-
-		let primera_base = bases[posicion_primera_base];
-		let x_primera_base = primera_base.get_x();
-		if (x_primera_base < 0) {
-			if (posicion_primera_base > 0) {
-				let base_anterior = bases[posicion_primera_base - 1];
-			}
-			else {
-				let base_anterior = bases[5];
-			}
-			do primera_base.dispose();
-			let base_actual = generar_base(base_anterior, 5);
-			let bases[posicion_primera_base] = base_actual;
-			if (posicion_primera_base = 5) {
-				let posicion_primera_base = 0;
-			}
-			else {
-				let posicion_primera_base = posicion_primera_base + 1;
-			}
-		}
-
-		return;
 	}
 
 	method void avanzar() {
 		var int i;
 		var Base base_actual;
 
-		do reemplazar_base();
 		let i = 0;
-		while (i < 5) {
+		while (i < 8) {
 			let base_actual = bases[i];	
 			do base_actual.borrar_base();
 			do base_actual.avanzar_base();
@@ -97,5 +77,26 @@ class Plataforma {
 		}
 		do Memory.deAlloc(base_actual);
 		return;
+	}
+
+	method int sobre_base(int y_cubo) {
+		var int i;	
+		var Base base_actual;
+
+		let i = 0;
+		while (i < 8) {
+			let base_actual = bases[i];
+			if ((base_actual.get_y() + 20) > y_cubo) {
+				if (y_cubo > (base_actual.get_y() - 20)) {
+					if (2 < (base_actual.get_x() + 10)) {
+						if ((base_actual.get_x() - 10) < 2) {
+							return 1;
+						}
+					}
+				}
+			}
+			let i = i + 1;
+			}
+		return 0;
 	}
 }

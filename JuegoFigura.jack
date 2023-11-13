@@ -21,39 +21,70 @@ class JuegoFigura {
     }
 
     method void moverFigura() {
+        var int i;
+        var int j;
         if (direccion = 1) {
-            do figura.saltar();
+            let i = 0;
+            let j = 0;
+            while (i < 50) {
+                do figura.saltar();
+                if (j = 9) {
+                    do plataforma.avanzar();
+                    let j = 0;
+                }
+                do Sys.wait(2);
+                let i = i + 1;
+                let j = j + 1;
+                }
         }
-        do Sys.wait(5);  //espera 5 seg
         return;
     }
 
+    method void dejar_caer() {
+        var int i;
+        var int j;
+
+        let i = 0;
+        let j = 0;
+        while (i < 5) {
+            do figura.caer();
+            if (j = 9) {
+                do plataforma.avanzar();
+                let j = 0;
+            }
+            do Sys.wait(4);
+            let i = i + 1;
+            let j = j + 1;
+        }
+        return;
+    }
+
+
+
     method void run() {
+        var int i;
         var char tecla;
         var boolean exit;
-        var Base base_inicial;
+        var int sobre;
+
+        //let bases = plataforma.get_bases();
         let exit = false;
 
         while (~exit){
-            while (tecla = 0) {
-                let tecla = Keyboard.keyPressed();
-                do plataforma.avanzar();
-                do Sys.wait(10);
-
-
+            let sobre = plataforma.sobre_base(figura.get_y());
+            let tecla = Keyboard.keyPressed();
+            do Output.printInt(sobre);
+            if (sobre) {
+                if (tecla = 131) {
+                    let direccion = 1;
+                    do moverFigura();
+                }
             }
-            if (tecla = 81) {  //letra Q  QUIT
-                let exit = true;
+            if (~sobre) {
+                do figura.caer();
             }
-            if (tecla = 131) {  //letra up
-                let direccion = 1;
-            }
-
-            while (~(tecla = 0)) {
-                let tecla = Keyboard.keyPressed();
-                do moverFigura();
-                let direccion = 0;
-            }
+            do plataforma.avanzar();
+            do Sys.wait(60);
         }
         return;
     }
