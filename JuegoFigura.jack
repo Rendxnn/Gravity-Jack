@@ -66,14 +66,15 @@ class JuegoFigura {
         var char tecla;
         var boolean exit;
         var int sobre;
+        var int cayendo;
+        var int puntuacion;
 
-        //let bases = plataforma.get_bases();
         let exit = false;
+        let puntuacion = 0;
 
         while (~exit){
             let sobre = plataforma.sobre_base(figura.get_y());
             let tecla = Keyboard.keyPressed();
-            do Output.printInt(sobre);
             if (sobre) {
                 if (tecla = 131) {
                     let direccion = 1;
@@ -81,11 +82,20 @@ class JuegoFigura {
                 }
             }
             if (~sobre) {
-                do figura.caer();
+                let cayendo = figura.caer();
+                if (cayendo = 0) {
+                    let exit = true;
+                }
             }
             do plataforma.avanzar();
             do Sys.wait(60);
+            let puntuacion = puntuacion + 1;
         }
+        let puntuacion = puntuacion / 10;
+        do Output.printString("GAME OVER");
+        do Output.println();
+        do Output.printString("SCORE: ");
+        do Output.printInt(puntuacion);
         return;
     }
 }
