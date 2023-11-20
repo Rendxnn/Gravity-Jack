@@ -88,10 +88,10 @@ class JuegoFigura {
                 }
             }
             do plataforma.avanzar();
-            do Sys.wait(60);
+            do Sys.wait(80);
             let puntuacion = puntuacion + 1;
         }
-        let puntuacion = puntuacion / 10;
+        let puntuacion = puntuacion / 4;
         do Output.printString("GAME OVER");
         do Output.println();
         do Output.printString("SCORE: ");
