@@ -36,11 +36,17 @@ class Figura {
         return;
     }
 
-    method void caer () {
+    method int caer () {
         do borrar();
         let y = y + 8;
-        do draw();
-        return;
+        if (y > 240) {
+            return 0;
+        }
+        else {
+            do draw();
+            return 1;
+        }
+        
     }
 
     method int get_y() {
