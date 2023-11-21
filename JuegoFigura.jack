@@ -76,6 +76,10 @@ class JuegoFigura {
             let sobre = plataforma.sobre_base(figura.get_y());
             let tecla = Keyboard.keyPressed();
             if (sobre) {
+                if (tecla = 87) {
+                    let direccion = 1;
+                    do moverFigura();
+                }
                 if (tecla = 131) {
                     let direccion = 1;
                     do moverFigura();

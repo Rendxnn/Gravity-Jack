@@ -87,7 +87,7 @@ class Plataforma {
 		while (i < 8) {
 			let base_actual = bases[i];
 			if ((base_actual.get_y() + 17) > y_cubo) {
-				if (y_cubo > (base_actual.get_y() - 10)) {
+				if (y_cubo > (base_actual.get_y() - 3)) {
 					if (2 < (base_actual.get_x() + 3)) {
 						if ((base_actual.get_x() - 3) < 2) {
 							return 1;
