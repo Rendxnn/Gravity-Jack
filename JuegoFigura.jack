@@ -28,7 +28,7 @@ class JuegoFigura {
             let j = 0;
             while (i < 50) {
                 do figura.saltar();
-                if (j = 9) {
+                if (j = 12) {
                     do plataforma.avanzar();
                     let j = 0;
                 }
